@@ -4,18 +4,18 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class adjMatrixGraph {
-    private int[][] edge;
+    int[][] edge;
     private char[] ver;
     private int noEdge;
     private int Vers, Edges;
-    private int find(char v)
+    int find(char v)
     {
         for(int i = 0; i < Vers; i++)
             if(ver[i] == v) return i;
         return -1;
     }
     //构造函数
-    private adjMatrixGraph(int vSize, char[] d, int noEdgeFlag)
+    adjMatrixGraph(int vSize, char[] d, int noEdgeFlag)
     {
         int i, j;
 
@@ -38,7 +38,7 @@ public class adjMatrixGraph {
         }
     }
 
-    private void insert(char x, char y, int w)
+    void insert(char x, char y, int w)
     {
         int u = find(x), v = find(y);
         edge[u][v] = w;
