@@ -60,7 +60,8 @@ public class adjMatrixGraph {
         return edge[u][v] != noEdge;
     }
 
-    private void prim() throws IOException {
+    public String prim(char startPoint) throws IOException {
+        StringBuilder output = new StringBuilder();
         boolean[] flag = new boolean[Vers];
         int[] lowCost = new int[Vers];
         int[] startNode = new int[Vers];
@@ -73,14 +74,10 @@ public class adjMatrixGraph {
             flag[i] = false;
             lowCost[i] = noEdge;
         }
-
-        char startPoint;
-        System.out.print("请输入起始顶点的标记:");
-        startPoint = (char)System.in.read();
         start = find(startPoint);
-        System.out.print(start);
 
-        System.out.print("最小生成树的边为:");
+        //System.out.print("最小生成树的边为:");
+        output.append("最小生成树的边为:\n");
         for(i = 0; i < Vers - 1; i++)
         {
             for(j = 0; j < Vers; j++)
@@ -95,9 +92,11 @@ public class adjMatrixGraph {
             min = noEdge;
             for(j = 0; j < Vers; j++)
                 if(lowCost[j] < min){min = lowCost[j]; start = j;}
-            System.out.printf("(%c,%c,%d)\t", ver[startNode[start]], ver[start], edge[startNode[start]][start]);
+            output.append("(").append(ver[startNode[start]]).append(",").append(ver[start]).append(",").append(edge[startNode[start]][start]).append(")\t");
+            //System.out.printf("(%c,%c,%d)\t", ver[startNode[start]], ver[start], edge[startNode[start]][start]);
             lowCost[start] = noEdge;
         }
+        return output.toString();
     }
 
     public static void main(String[] args) throws IOException {
@@ -125,6 +124,9 @@ public class adjMatrixGraph {
             weight = sc.nextInt();
             graph.insert(begin, end, weight);
         }
-        graph.prim();
+        char startPoint;
+        System.out.print("请输入起始顶点的标记:");
+        startPoint = (char)System.in.read();
+        System.out.print(graph.prim(startPoint));
     }
 }
