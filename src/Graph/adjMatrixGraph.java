@@ -60,7 +60,7 @@ public class adjMatrixGraph {
         return edge[u][v] != noEdge;
     }
 
-    public String prim(char startPoint) throws IOException {
+    public String prim(char startPoint){
         StringBuilder output = new StringBuilder();
         boolean[] flag = new boolean[Vers];
         int[] lowCost = new int[Vers];
@@ -77,7 +77,7 @@ public class adjMatrixGraph {
         start = find(startPoint);
 
         //System.out.print("最小生成树的边为:");
-        output.append("最小生成树的边为:\n");
+        output.append("最小生成树的边为:");
         for(i = 0; i < Vers - 1; i++)
         {
             for(j = 0; j < Vers; j++)
