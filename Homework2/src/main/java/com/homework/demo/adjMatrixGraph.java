@@ -5,17 +5,17 @@ import java.util.Scanner;
 
 public class adjMatrixGraph {
     int[][] edge;
-    private char[] ver;
+    private String[] ver;
     private int noEdge;
     private int Vers, Edges;
-    int find(char v)
+    int find(String v)
     {
         for(int i = 0; i < Vers; i++)
-            if(ver[i] == v) return i;
+            if(ver[i].equals(v)) return i;
         return -1;
     }
     //构造函数
-    adjMatrixGraph(int vSize, char[] d, int noEdgeFlag)
+    adjMatrixGraph(int vSize, String[] d, int noEdgeFlag)
     {
         int i, j;
 
@@ -25,7 +25,7 @@ public class adjMatrixGraph {
         noEdge = noEdgeFlag;
 
         //存放节点的数组初始化
-        ver = new char[vSize];
+        ver = new String[vSize];
         for(i = 0; i < vSize; i++) ver[i] = d[i];
 
         //邻接矩阵初始化
@@ -38,15 +38,16 @@ public class adjMatrixGraph {
         }
     }
 
-    void insert(char x, char y, int w)
+    void insert(String x, String y, int w)
     {
         int u = find(x), v = find(y);
+
         edge[u][v] = w;
         edge[v][u] = w;
         Edges++;
     }
 
-    void remove(char x, char y)
+    void remove(String x, String y)
     {
         int u = find(x), v = find(y);
         edge[u][v] = noEdge;
@@ -54,13 +55,13 @@ public class adjMatrixGraph {
         --Edges;
     }
 
-    boolean exist(char x, char y)
+    boolean exist(String x, String y)
     {
         int u = find(x), v = find(y);
         return edge[u][v] != noEdge;
     }
 
-    public String prim(char startPoint){
+    public String prim(String startPoint){
         StringBuilder output = new StringBuilder();
         boolean[] flag = new boolean[Vers];
         int[] lowCost = new int[Vers];
@@ -101,32 +102,32 @@ public class adjMatrixGraph {
 
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        char[] ver;
-        char begin;
-        char end;
+        String[] ver;
+        String begin;
+        String end;
         int weight, numOfPoint;
         System.out.print("请输入顶点的数目:");
         numOfPoint = sc.nextInt();
-        ver = new char [numOfPoint];
+        ver = new String [numOfPoint];
         System.out.printf("请逐个输入%d个顶点的标记:", numOfPoint);
         for(int i = 0; i < numOfPoint; i++)
-            ver[i] = sc.next().charAt(0);
+            ver[i] = sc.next();
         adjMatrixGraph graph = new adjMatrixGraph(numOfPoint, ver, 100); //网中边的权值设成小于100的整数
 
         while(true)
         {
             System.out.print("请输入边的起点(输入q退出):");
-            begin = sc.next().charAt(0);
-            if(begin == 'Q' || begin == 'q') break;
+            begin = sc.next();
+            if(begin.equals("Q") || begin.equals("q")) break;
             System.out.print("请输入边的终点:");
-            end = sc.next().charAt(0);
+            end = sc.next();
             System.out.print("请输入该边的权值:");
             weight = sc.nextInt();
             graph.insert(begin, end, weight);
         }
-        char startPoint;
+        String startPoint;
         System.out.print("请输入起始顶点的标记:");
-        startPoint = (char)System.in.read();
+        startPoint = sc.next();
         System.out.print(graph.prim(startPoint));
     }
 }

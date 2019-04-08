@@ -42,23 +42,32 @@
             amountOfLine++;
         }
         function getAllInputs() {
-            var saveDataAry=[];
-            saveDataAry.push(amountOfNode);
-            saveDataAry.push(amountOfLine);
+            var nodes = [];
+            var starts = [];
+            var ends = [];
+            var weights = [];
             for(var i = 0; i < amountOfNode; i++)
             {
-                saveDataAry.push(document.getElementById("node" + i.toString()).value);
+                nodes.push(document.getElementById("node" + i.toString()).value);
             }
             for(var i = 0; i < amountOfLine; i++)
             {
-                saveDataAry.push(document.getElementById("start" + i.toString()).value);
-                saveDataAry.push(document.getElementById("end" + i.toString()).value);
-                saveDataAry.push(document.getElementById("weight" + i.toString()).value);
+                starts.push(document.getElementById("start" + i.toString()).value);
+                ends.push(document.getElementById("end" + i.toString()).value);
+                weights.push(parseInt(document.getElementById("weight" + i.toString()).value));
             }
-            saveDataAry.push(document.getElementById("start").value);
+            var saveDataAry = {
+                amountOfNode: amountOfNode,
+                amountOfLine: amountOfLine,
+                nodes: nodes,
+                starts: starts,
+                ends: ends,
+                weights: weights,
+                startPoint: document.getElementById("start").value,
+            }
             $.ajax({
-                type:"POST",
-                url:  "http://localhost:8080" + "/graph/prim",
+                type: "POST",
+                url: "http://localhost:8080" + "/graph/prim",
                 dataType:"text",
                 data: {
                     values: JSON.stringify(saveDataAry)
@@ -76,11 +85,11 @@
         <p>请输入顶点的数目:</p>
         <input type="text" id="amount" onchange="getAmount()"/>
         <div id="nodes">
-            <p>请逐个输入顶点（单个字符）:</p>
+            <p>请逐个输入顶点:</p>
         </div>
         <div id="lines">
             <div>
-                <p>请输入图的各边的信息(依次为起点、终点、权值)</p>
+                <p>请输入图的各边的信息(依次为起点、终点、权值(整数))</p>
                 <button onclick="addLine()">新建一条边</button>
             </div>
         </div>
@@ -88,7 +97,7 @@
             <p>请输入prim算法的起点</p>
             <input id="start">
         </div>
-        <button onclick="getAllInputs()">test</button>
+        <a onclick="getAllInputs()"><button>调用prim算法</button></a>
     </div>
 </body>
 </html>
