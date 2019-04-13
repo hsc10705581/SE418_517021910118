@@ -15,7 +15,7 @@
 - 调用[/src/test/java/com/homework/demo/DemoApplicationTests.java](https://github.com/hsc10705581/SE418_517021910118/blob/master/Homework2/src/test/java/com/homework/demo/DemoApplicationTests.java)来测试controller
 - 调用[/src/test/java/com/homework/demo/adjMatrixGraphTest.java](https://github.com/hsc10705581/SE418_517021910118/blob/master/Homework2/src/test/java/com/homework/demo/adjMatrixGraphTest.java)来测试adjMatrixGraph
 - 调用[/src/test/java/com/homework/demo/SpringActuatorTests.java](https://github.com/hsc10705581/SE418_517021910118/blob/master/Homework2/src/test/java/com/homework/demo/SpringActuatorTests.java)来测试spring actuator
-- 调用[/src/test/java/com/homework/demo/SpringSecurityTests.java](https://github.com/hsc10705581/SE418_517021910118/blob/master/Homework2/src/test/java/com/homework/demo/SpringSecurityTests.java)来测试spring actuator
+- 调用[/src/test/java/com/homework/demo/SpringSecurityTests.java](https://github.com/hsc10705581/SE418_517021910118/blob/master/Homework2/src/test/java/com/homework/demo/SpringSecurityTests.java)来测试spring security
 
 ## API
 向"/main/prim"发送的POST request的body需要有一对键值对，其中key为“values”，value为转化为字符串类型的Json对象。
