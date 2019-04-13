@@ -2,9 +2,9 @@
 <html lang="en">
 <head xmlns:th="http://www.thymeleaf.org">
     <meta charset="UTF-8">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- <meta name="_csrf" th:content="${_csrf.token}"/> -->
     <!-- default header name is X-CSRF-TOKEN -->
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <!-- <meta name="_csrf_header" th:content="${_csrf.headerName}"/> -->
     <title>Index</title>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <style type="text/css">
@@ -68,11 +68,11 @@
                 weights: weights,
                 startPoint: document.getElementById("start").value,
             }
-            var token = $("meta[name='_csrf']").attr("content");
-            var header = $("meta[name='_csrf_header']").attr("content");
-            $(document).ajaxSend(function(e, xhr, options) {
-                xhr.setRequestHeader(header, token);
-            });
+            //var token = $("meta[name='_csrf']").attr("content");
+            //var header = $("meta[name='_csrf_header']").attr("content");
+            //$(document).ajaxSend(function(e, xhr, options) {
+            //    xhr.setRequestHeader(header, token);
+            //});
             $.ajax({
                 type: "POST",
                 url: "http://localhost:8080" + "/main/prim",
