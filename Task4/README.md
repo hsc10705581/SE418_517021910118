@@ -37,3 +37,4 @@ $ pip install time
 $ python javaText.py
 ```
 You can see information at [http://localhost:8080/hystrix](http://localhost:8080/hystrix) like following:
+![image](hystrix.png)
