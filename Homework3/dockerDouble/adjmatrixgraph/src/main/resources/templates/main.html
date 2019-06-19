@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <!-- <meta name="_csrf" th:content="${_csrf.token}"/> -->
+    <!-- default header name is X-CSRF-TOKEN -->
+    <!-- <meta name="_csrf_header" th:content="${_csrf.headerName}"/> -->
+    <title>Index</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style type="text/css">
+        input{
+            width: 100px;
+            margin: 5px;
+        }
+    </style>
+    <script type="text/javascript">
+        var amountOfNode = 0;
+        var amountOfLine = 0;
+        function getAmount() {
+            amountOfNode = document.getElementById("amount").value;
+            amountOfNode = parseInt(amountOfNode);
+            var nodes = document.getElementById("nodes");
+            for (var i = 0; i < amountOfNode; i++)
+            {
+                var inp = document.createElement("input");
+                inp.id = "node" + i.toString();
+                inp.type = "text";
+                inp.defaultVal = "请输入第" + (i+1).toString() + "个顶点的标记...";
+                nodes.appendChild(inp);
+            }
+        }
+        function addLine() {
+            var line = document.createElement("div");
+            line.id = "line" + amountOfLine.toString();
+            var lines = document.getElementById("lines");
+            lines.appendChild(line);
+
+            var info = ["start", "end", "weight"];
+            for(var i = 0; i < 3; i++)
+            {
+                var inp = document.createElement("input");
+                inp.id = info[i] + amountOfLine.toString();
+                line.appendChild(inp)
+            }
+            amountOfLine++;
+        }
+        function getAllInputs() {
+            var nodes = [];
+            var starts = [];
+            var ends = [];
+            var weights = [];
+            for(var i = 0; i < amountOfNode; i++)
+            {
+                nodes.push(document.getElementById("node" + i.toString()).value);
+            }
+            for(var i = 0; i < amountOfLine; i++)
+            {
+                starts.push(document.getElementById("start" + i.toString()).value);
+                ends.push(document.getElementById("end" + i.toString()).value);
+                weights.push(parseInt(document.getElementById("weight" + i.toString()).value));
+            }
+            var saveDataAry = {
+                amountOfNode: amountOfNode,
+                amountOfLine: amountOfLine,
+                nodes: nodes,
+                starts: starts,
+                ends: ends,
+                weights: weights,
+                startPoint: document.getElementById("start").value,
+            }
+            //var token = $("meta[name='_csrf']").attr("content");
+            //var header = $("meta[name='_csrf_header']").attr("content");
+            //$(document).ajaxSend(function(e, xhr, options) {
+            //    xhr.setRequestHeader(header, token);
+            //});
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:3030" + "/main/prim",
+                dataType:"text",
+                data: {
+                    values: JSON.stringify(saveDataAry)
+                },
+                success:function(data){
+
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>prim算法获得最小生成树</h1>
+    <div style="display: flex; flex-direction: column;">
+        <p>请输入顶点的数目:</p>
+        <input type="text" id="amount" onchange="getAmount()"/>
+        <div id="nodes">
+            <p>请逐个输入顶点:</p>
+        </div>
+        <div id="lines">
+            <div>
+                <p>请输入图的各边的信息(依次为起点、终点、权值(整数))</p>
+                <button onclick="addLine()">新建一条边</button>
+            </div>
+        </div>
+        <div>
+            <p>请输入prim算法的起点</p>
+            <input id="start">
+        </div>
+        <a onclick="getAllInputs()"><button>调用prim算法</button></a>
+    </div>
+</body>
+</html>
